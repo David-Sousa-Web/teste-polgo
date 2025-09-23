@@ -4,6 +4,7 @@ import cors from "cors";
 import swaggerUi from 'swagger-ui-express'
 import swaggerJsdoc from 'swagger-jsdoc'
 import { registerRoutes } from "./routes/index";
+import { loggingMiddleware } from "./middlewares/loggingMiddleware";
 
 
 const server = async () => {
@@ -13,6 +14,7 @@ const server = async () => {
 
   app.use(express.json());
   app.use(cors());
+  app.use(loggingMiddleware);
 
   const swaggerOptions = {
     definition: {
