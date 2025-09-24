@@ -31,10 +31,12 @@ model Winner {
 model Store {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  cnpj      String   @unique
+  cnpj      String
   state     String   
   city      String
   address   String
+  latitude  Float?
+  longitude Float?
   
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
