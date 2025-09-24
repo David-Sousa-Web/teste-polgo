@@ -20,6 +20,7 @@ export class PrismaWinnersRepository implements IWinnersRepository {
         city: data.city,
         prize: data.prize,
         drawDate: data.drawDate,
+        deletedAt: null,
       },
     })
 
