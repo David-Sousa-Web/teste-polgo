@@ -171,27 +171,6 @@ export class PrismaStoresRepository implements IStoresRepository {
     })
   }
 
-  async countByState(): Promise<Array<{ state: string; count: number }>> {
-    const aggregationData = await this.prisma.store.groupBy({
-      by: ['state'],
-      where: {
-        deletedAt: null,
-      },
-      _count: {
-        state: true,
-      },
-    })
-
-    const result = aggregationData
-      .map(item => ({
-        state: item.state,
-        count: item._count.state,
-      }))
-      .sort((a, b) => b.count - a.count)
-
-    return result
-  }
-
   async findByCnpj(cnpj: string): Promise<Store | null> {
     const store = await this.prisma.store.findFirst({
       where: {

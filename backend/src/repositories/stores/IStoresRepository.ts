@@ -54,6 +54,5 @@ export interface IStoresRepository {
   findMany(query: GetStoresQuery): Promise<GetStoresResult>
   update(id: string, data: UpdateStoreData): Promise<Store | null>
   delete(id: string): Promise<void>
-  countByState(): Promise<Array<{ state: string; count: number }>>
   findByCnpj(cnpj: string): Promise<Store | null>
 }
