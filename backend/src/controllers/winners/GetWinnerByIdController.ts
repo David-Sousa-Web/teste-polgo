@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { z, ZodError } from "zod"
 import { WinnersFactory } from "../../factories/WinnersFactory"
-import { ServiceError } from "../../services/errors/ServiceError"
+import { ServiceError, NotFoundError } from "../../services/errors/ServiceError"
 import { ApiResponse, ApiErrorResponse } from "../../types/ApiResponse"
 import { idParamSchema } from "./schemas"
 
@@ -28,6 +28,14 @@ export class GetWinnerByIdController {
           errors: error.issues.map((e: any) => e.message)
         }
         return res.status(400).json(errorResponse)
+      }
+
+      if (error instanceof NotFoundError) {
+        const errorResponse: ApiErrorResponse = {
+          success: false,
+          message: error.message
+        }
+        return res.status(404).json(errorResponse)
       }
 
       if (error instanceof ServiceError) {

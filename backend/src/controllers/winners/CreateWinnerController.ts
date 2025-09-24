@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { z } from "zod"
 import { WinnersFactory } from "../../factories/WinnersFactory"
-import { ServiceError } from "../../services/errors/ServiceError"
+import { ServiceError, ValidationError } from "../../services/errors/ServiceError"
 import { ApiResponse, ApiErrorResponse } from "../../types/ApiResponse"
 import { createWinnerSchema } from "./schemas"
 
@@ -29,6 +29,14 @@ export class CreateWinnerController {
           success: false,
           message: "Dados inválidos",
           errors: error.issues.map((e: any) => e.message)
+        }
+        return res.status(400).json(errorResponse)
+      }
+
+      if (error instanceof ValidationError) {
+        const errorResponse: ApiErrorResponse = {
+          success: false,
+          message: error.message
         }
         return res.status(400).json(errorResponse)
       }
