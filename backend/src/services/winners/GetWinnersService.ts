@@ -1,5 +1,4 @@
 import { IWinnersRepository, WinnersFilters, PaginationParams, PaginatedResult, Winner } from "../../repositories/winners/IWinnersRepository"
-import { ValidationError } from "../errors/ServiceError"
 
 interface GetWinnersRequest {
   page?: number
@@ -16,10 +15,6 @@ export class GetWinnersService {
   async execute(params: GetWinnersRequest): Promise<PaginatedResult<Winner>> {
     const page = params.page && params.page > 0 ? params.page : 1
     const limit = params.limit && params.limit > 0 && params.limit <= 100 ? params.limit : 10
-
-    if (params.limit && params.limit > 100) {
-      throw new ValidationError("Limite máximo de registros por página é 100")
-    }
     
     const filters: WinnersFilters = {}
     
