@@ -5,6 +5,7 @@ import { GetWinnerByIdController } from "../controllers/winners/GetWinnerByIdCon
 import { UpdateWinnerController } from "../controllers/winners/UpdateWinnerController"
 import { DeleteWinnerController } from "../controllers/winners/DeleteWinnerController"
 import { GetWinnersAggregationController } from "../controllers/winners/GetWinnersAggregationController"
+import { authMiddleware } from "../middlewares/authMiddleware"
 
 const router = Router()
 
@@ -224,6 +225,8 @@ const getWinnersAggregationController = new GetWinnersAggregationController()
  *       - Ganhadores
  *     summary: Criar novo ganhador
  *     description: Criar novo ganhador com validação completa dos campos obrigatórios e formatação automática de dados.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -266,6 +269,15 @@ const getWinnersAggregationController = new GetWinnersAggregationController()
  *               success: false
  *               message: "Dados inválidos"
  *               errors: ["Nome completo deve ter pelo menos 2 caracteres", "Estado deve ter exatamente 2 caracteres"]
+ *       401:
+ *         description: Token de acesso inválido ou ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiErrorResponse'
+ *             example:
+ *               success: false
+ *               message: "Token de acesso requerido"
  *       500:
  *         description: Erro interno do servidor
  *         content:
@@ -276,7 +288,7 @@ const getWinnersAggregationController = new GetWinnersAggregationController()
  *               success: false
  *               message: "Erro interno do servidor"
  */
-router.post('/', createWinnerController.execute.bind(createWinnerController))
+router.post('/', authMiddleware, createWinnerController.execute.bind(createWinnerController))
 
 /**
  * @swagger
@@ -507,6 +519,8 @@ router.get('/:id', getWinnerByIdController.execute.bind(getWinnerByIdController)
  *       - Ganhadores
  *     summary: Editar ganhador existente
  *     description: Editar ganhador existente com validação de integridade e log de alterações para auditoria.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -558,6 +572,15 @@ router.get('/:id', getWinnerByIdController.execute.bind(getWinnerByIdController)
  *               success: false
  *               message: "Dados inválidos"
  *               errors: ["Nome completo deve ter pelo menos 2 caracteres", "Estado deve ter exatamente 2 caracteres"]
+ *       401:
+ *         description: Token de acesso inválido ou ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiErrorResponse'
+ *             example:
+ *               success: false
+ *               message: "Token de acesso requerido"
  *       404:
  *         description: Ganhador não encontrado
  *         content:
@@ -577,7 +600,7 @@ router.get('/:id', getWinnerByIdController.execute.bind(getWinnerByIdController)
  *               success: false
  *               message: "Erro interno do servidor"
  */
-router.put('/:id', updateWinnerController.execute.bind(updateWinnerController))
+router.put('/:id', authMiddleware, updateWinnerController.execute.bind(updateWinnerController))
 
 /**
  * @swagger
@@ -587,6 +610,8 @@ router.put('/:id', updateWinnerController.execute.bind(updateWinnerController))
  *       - Ganhadores
  *     summary: Excluir ganhador
  *     description: Exclusão segura de ganhador com confirmação e possibilidade de soft delete para manter histórico.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -617,6 +642,15 @@ router.put('/:id', updateWinnerController.execute.bind(updateWinnerController))
  *               success: false
  *               message: "ID inválido"
  *               errors: ["ID deve ter 24 caracteres hexadecimais"]
+ *       401:
+ *         description: Token de acesso inválido ou ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiErrorResponse'
+ *             example:
+ *               success: false
+ *               message: "Token de acesso requerido"
  *       404:
  *         description: Ganhador não encontrado
  *         content:
@@ -636,6 +670,6 @@ router.put('/:id', updateWinnerController.execute.bind(updateWinnerController))
  *               success: false
  *               message: "Erro interno do servidor"
  */
-router.delete('/:id', deleteWinnerController.execute.bind(deleteWinnerController))
+router.delete('/:id', authMiddleware, deleteWinnerController.execute.bind(deleteWinnerController))
 
 export { router as winnersRoutes }

@@ -4,6 +4,7 @@ import { GetStoresController } from "../controllers/stores/GetStoresController"
 import { GetStoreByIdController } from "../controllers/stores/GetStoreByIdController"
 import { UpdateStoreController } from "../controllers/stores/UpdateStoreController"
 import { DeleteStoreController } from "../controllers/stores/DeleteStoreController"
+import { authMiddleware } from "../middlewares/authMiddleware"
 
 const router = Router()
 
@@ -130,6 +131,8 @@ const deleteStoreController = new DeleteStoreController()
  *       - Lojas
  *     summary: Criar nova loja
  *     description: Criar nova loja com validação de CNPJ, estados brasileiros e obtenção automática de coordenadas via geocoding.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -174,6 +177,15 @@ const deleteStoreController = new DeleteStoreController()
  *               success: false
  *               message: "Dados inválidos"
  *               errors: ["Nome da loja deve ter pelo menos 2 caracteres", "CNPJ deve ter formato válido"]
+ *       401:
+ *         description: Token de acesso inválido ou ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiErrorResponse'
+ *             example:
+ *               success: false
+ *               message: "Token de acesso requerido"
  *       409:
  *         description: CNPJ já cadastrado
  *         content:
@@ -193,7 +205,7 @@ const deleteStoreController = new DeleteStoreController()
  *               success: false
  *               message: "Erro interno do servidor"
  */
-router.post('/', createStoreController.execute.bind(createStoreController))
+router.post('/', authMiddleware, createStoreController.execute.bind(createStoreController))
 
 /**
  * @swagger
@@ -383,6 +395,8 @@ router.get('/:id', getStoreByIdController.execute.bind(getStoreByIdController))
  *       - Lojas
  *     summary: Atualizar loja existente
  *     description: Atualizar loja existente com validação de CNPJ único, estados brasileiros e reobtendo coordenadas se endereço mudar.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -436,6 +450,15 @@ router.get('/:id', getStoreByIdController.execute.bind(getStoreByIdController))
  *               success: false
  *               message: "Dados inválidos"
  *               errors: ["Nome da loja deve ter pelo menos 2 caracteres"]
+ *       401:
+ *         description: Token de acesso inválido ou ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiErrorResponse'
+ *             example:
+ *               success: false
+ *               message: "Token de acesso requerido"
  *       404:
  *         description: Loja não encontrada
  *         content:
@@ -464,7 +487,7 @@ router.get('/:id', getStoreByIdController.execute.bind(getStoreByIdController))
  *               success: false
  *               message: "Erro interno do servidor"
  */
-router.put('/:id', updateStoreController.execute.bind(updateStoreController))
+router.put('/:id', authMiddleware, updateStoreController.execute.bind(updateStoreController))
 
 /**
  * @swagger
@@ -474,6 +497,8 @@ router.put('/:id', updateStoreController.execute.bind(updateStoreController))
  *       - Lojas
  *     summary: Excluir loja
  *     description: Exclusão segura de loja usando soft delete para manter histórico e integridade referencial.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -504,6 +529,15 @@ router.put('/:id', updateStoreController.execute.bind(updateStoreController))
  *               success: false
  *               message: "ID inválido"
  *               errors: ["ID deve ter 24 caracteres hexadecimais"]
+ *       401:
+ *         description: Token de acesso inválido ou ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiErrorResponse'
+ *             example:
+ *               success: false
+ *               message: "Token de acesso requerido"
  *       404:
  *         description: Loja não encontrada
  *         content:
@@ -523,6 +557,6 @@ router.put('/:id', updateStoreController.execute.bind(updateStoreController))
  *               success: false
  *               message: "Erro interno do servidor"
  */
-router.delete('/:id', deleteStoreController.execute.bind(deleteStoreController))
+router.delete('/:id', authMiddleware, deleteStoreController.execute.bind(deleteStoreController))
 
 export { router as storesRoutes }

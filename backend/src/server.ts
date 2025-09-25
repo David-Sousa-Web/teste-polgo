@@ -29,7 +29,16 @@ const server = async () => {
           url: `http://localhost:${PORT}`,
           description: 'Development server'
         }
-      ]
+      ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT'
+          }
+        }
+      }
     },
     apis: ['./src/routes/*.ts']
   }
