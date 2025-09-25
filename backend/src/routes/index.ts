@@ -2,6 +2,7 @@ import type { Router } from 'express'
 import { z } from 'zod'
 import { winnersRoutes } from './winnersRoutes'
 import { storesRoutes } from './storesRoutes'
+import { authRoutes } from './authRoutes'
 
 const healthResponseSchema = z.object({
   success: z.literal(true),
@@ -55,6 +56,7 @@ export function registerRoutes(router: Router) {
     res.json(validatedResponse)
   })
 
+  router.use('/auth', authRoutes)
   router.use('/ganhadores', winnersRoutes)
   router.use('/lojas', storesRoutes)
 }
