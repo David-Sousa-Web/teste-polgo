@@ -1,0 +1,6 @@
+export { default as HeroSection } from './HeroSection.vue'
+export { default as ParticipateSection } from './ParticipateSection.vue' 
+export { default as PrizesSection } from './PrizesSection.vue'
+export { default as FaqSection } from './FaqSection.vue'
+export { default as WinnersSection } from './WinnersSection.vue'
+export { default as StoresSection } from './StoresSection.vue'
