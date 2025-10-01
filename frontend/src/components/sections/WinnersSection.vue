@@ -69,29 +69,48 @@
             </button>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-            <div>
-              <label class="block text-xs font-semibold text-gray-600 mb-1">Buscar por nome</label>
-              <input 
-                v-model="searchName"
-                type="text"
-                placeholder="Digite o nome..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
-              />
+          <div class="mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1">Buscar por nome</label>
+                <input 
+                  v-model="searchNameInput"
+                  type="text"
+                  placeholder="Digite o nome..."
+                  @keyup.enter="applyFilters"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1">Buscar por prêmio</label>
+                <input 
+                  v-model="searchPrizeInput"
+                  type="text"
+                  placeholder="Digite o prêmio..."
+                  @keyup.enter="applyFilters"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                />
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-semibold text-gray-600 mb-1">Buscar por prêmio</label>
-              <input 
-                v-model="searchPrize"
-                type="text"
-                placeholder="Digite o prêmio..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
-              />
+            <div class="flex gap-2">
+              <button
+                @click="applyFilters"
+                class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm"
+              >
+                🔍 Aplicar Filtros
+              </button>
+              <button
+                v-if="appliedSearchName || appliedSearchPrize"
+                @click="clearFilters"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium text-sm"
+              >
+                ✕ Limpar
+              </button>
             </div>
           </div>
 
           <div class="flex items-center justify-between mb-3 text-sm text-gray-600">
-            <p>{{ filteredWinners.length }} ganhador(es) encontrado(s)</p>
+            <p>{{ totalWinners }} ganhador(es) encontrado(s) - Página {{ currentPage }} de {{ totalPages }}</p>
             <select 
               v-model="itemsPerPage"
               class="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -103,7 +122,14 @@
             </select>
           </div>
 
-          <div class="flex-1 overflow-y-auto pr-2 mb-3 space-y-3">
+          <div class="flex-1 overflow-y-auto pr-2 mb-3 space-y-3 relative">
+            <div v-if="loadingList" class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10 rounded-lg">
+              <div class="text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-purple-500 border-t-transparent"></div>
+                <p class="mt-2 text-sm text-gray-600">Atualizando...</p>
+              </div>
+            </div>
+            
             <div 
               v-for="winner in paginatedWinners" 
               :key="winner.id"
@@ -130,7 +156,7 @@
             </div>
           </div>
 
-          <div v-if="filteredWinners.length === 0" class="flex-1 flex items-center justify-center text-gray-500">
+          <div v-if="winners.length === 0 && !loadingList" class="flex-1 flex items-center justify-center text-gray-500">
             <div class="text-center">
               <svg class="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -139,7 +165,7 @@
             </div>
           </div>
 
-          <div v-if="totalPages > 1" class="flex items-center justify-between pt-3 mt-3 border-t border-gray-200">
+          <div v-if="totalPages > 0" class="flex items-center justify-between pt-3 mt-3 border-t border-gray-200">
             <button 
               @click="currentPage = Math.max(1, currentPage - 1)"
               :disabled="currentPage === 1"
@@ -200,6 +226,7 @@
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import L from 'leaflet'
 import SectionHeader from '@/components/ui/SectionHeader.vue'
+import { winnersApi, type Winner, type StateAggregation } from '@/services/winnersApi'
 
 delete (L.Icon.Default.prototype as any)._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -208,32 +235,27 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 })
 
-interface Winner {
-  id: string
-  fullName: string
-  state: string
-  city: string
-  prize: string
-  drawDate: string
-}
-
-interface StateAggregation {
-  state: string
-  count: number
-}
-
 const winners = ref<Winner[]>([])
 const stateAggregation = ref<StateAggregation[]>([])
 const loading = ref(true)
+const loadingList = ref(false)
 const error = ref('')
 const selectedState = ref<string | null>(null)
-const searchName = ref('')
-const searchPrize = ref('')
+
+const searchNameInput = ref('')
+const searchPrizeInput = ref('')
+const appliedSearchName = ref('')
+const appliedSearchPrize = ref('')
+
 const currentPage = ref(1)
 const itemsPerPage = ref(10)
+const totalWinners = ref(0)
+const totalPages = ref(0)
 const mapContainer = ref<HTMLElement | null>(null)
+const isMapInitialized = ref(false)
 let map: L.Map | null = null
 let markers: L.Marker[] = []
+let allWinners: Winner[] = []
 
 const stateCoordinates: Record<string, [number, number]> = {
   'AC': [-9.0238, -70.812],
@@ -265,37 +287,7 @@ const stateCoordinates: Record<string, [number, number]> = {
   'TO': [-10.1753, -48.2982]
 }
 
-const filteredWinners = computed(() => {
-  let filtered = winners.value
-
-  if (selectedState.value) {
-    filtered = filtered.filter(w => w.state === selectedState.value)
-  }
-
-  if (searchName.value.trim()) {
-    filtered = filtered.filter(w => 
-      w.fullName.toLowerCase().includes(searchName.value.toLowerCase())
-    )
-  }
-
-  if (searchPrize.value.trim()) {
-    filtered = filtered.filter(w => 
-      w.prize.toLowerCase().includes(searchPrize.value.toLowerCase())
-    )
-  }
-
-  return filtered
-})
-
-const paginatedWinners = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return filteredWinners.value.slice(start, end)
-})
-
-const totalPages = computed(() => {
-  return Math.ceil(filteredWinners.value.length / itemsPerPage.value)
-})
+const paginatedWinners = computed(() => winners.value)
 
 const visiblePages = computed(() => {
   const pages: number[] = []
@@ -340,16 +332,17 @@ const selectState = (uf: string | null) => {
   } else {
     selectedState.value = selectedState.value === uf ? null : uf
   }
-  currentPage.value = 1
 }
 
 const initMap = () => {
+  if (map) {
+    return
+  }
+
   if (!mapContainer.value) {
     console.error('Map container not found')
     return
   }
-
-  console.log('Initializing map...')
   
   try {
     map = L.map(mapContainer.value, {
@@ -364,7 +357,6 @@ const initMap = () => {
       minZoom: 3
     }).addTo(map)
 
-    console.log('Map initialized successfully')
     updateMarkers()
   } catch (error) {
     console.error('Error initializing map:', error)
@@ -377,16 +369,12 @@ const updateMarkers = () => {
     return
   }
 
-  console.log('Updating markers...', winners.value.length, 'winners')
-
   markers.forEach(marker => marker.remove())
   markers = []
 
   const winnersToShow = selectedState.value 
-    ? winners.value.filter(w => w.state === selectedState.value)
-    : winners.value
-
-  console.log('Winners to show:', winnersToShow.length)
+    ? allWinners.filter(w => w.state === selectedState.value)
+    : allWinners
 
   const stateGroups = winnersToShow.reduce((acc, winner) => {
     if (!acc[winner.state]) {
@@ -395,8 +383,6 @@ const updateMarkers = () => {
     acc[winner.state]!.push(winner)
     return acc
   }, {} as Record<string, Winner[]>)
-
-  console.log('State groups:', Object.keys(stateGroups).length)
 
   Object.entries(stateGroups).forEach(([state, stateWinners]) => {
     const coords = stateCoordinates[state]
@@ -446,11 +432,17 @@ const updateMarkers = () => {
 }
 
 watch(selectedState, () => {
-  updateMarkers()
+  currentPage.value = 1
+  fetchWinners()
 })
 
-watch([searchName, searchPrize], () => {
+watch(currentPage, () => {
+  fetchWinners()
+})
+
+watch(itemsPerPage, () => {
   currentPage.value = 1
+  fetchWinners()
 })
 
 const formatDate = (dateString: string) => {
@@ -462,36 +454,80 @@ const formatDate = (dateString: string) => {
   })
 }
 
+const applyFilters = () => {
+  appliedSearchName.value = searchNameInput.value
+  appliedSearchPrize.value = searchPrizeInput.value
+  currentPage.value = 1
+  fetchWinners()
+}
+
+const clearFilters = () => {
+  searchNameInput.value = ''
+  searchPrizeInput.value = ''
+  appliedSearchName.value = ''
+  appliedSearchPrize.value = ''
+  currentPage.value = 1
+  fetchWinners()
+}
+
 const fetchWinners = async () => {
   try {
-    loading.value = true
+    const isFirstLoad = !isMapInitialized.value
+    
+    if (isFirstLoad) {
+      loading.value = true
+    } else {
+      loadingList.value = true
+    }
+    
     error.value = ''
 
-    const [winnersResponse, aggregationResponse] = await Promise.all([
-      fetch('http://localhost:3333/api/ganhadores?limit=100'),
-      fetch('http://localhost:3333/api/ganhadores/agregacao')
-    ])
-
-    if (!winnersResponse.ok || !aggregationResponse.ok) {
-      throw new Error('Erro ao carregar dados dos ganhadores')
+    const filters = {
+      state: selectedState.value || undefined,
+      fullName: appliedSearchName.value.trim() || undefined,
+      prize: appliedSearchPrize.value.trim() || undefined,
     }
 
-    const winnersData = await winnersResponse.json()
-    const aggregationData = await aggregationResponse.json()
+    const pagination = {
+      page: currentPage.value,
+      limit: itemsPerPage.value,
+    }
 
-    winners.value = winnersData.data || []
-    stateAggregation.value = aggregationData.data || []
+    if (isFirstLoad) {
+      const [winnersResponse, aggregationResponse, allWinnersResponse] = await Promise.all([
+        winnersApi.getWinners(filters, pagination),
+        winnersApi.getStateAggregation(),
+        winnersApi.getWinners({}, { limit: 1000 })
+      ])
 
-    loading.value = false
-    
-    await nextTick()
-    setTimeout(() => {
-      initMap()
-    }, 100)
+      winners.value = winnersResponse.data
+      totalWinners.value = winnersResponse.total
+      totalPages.value = winnersResponse.totalPages
+      stateAggregation.value = aggregationResponse.data
+      allWinners = allWinnersResponse.data
+
+      loading.value = false
+      
+      await nextTick()
+      setTimeout(() => {
+        initMap()
+        isMapInitialized.value = true
+      }, 100)
+    } else {
+      const winnersResponse = await winnersApi.getWinners(filters, pagination)
+      
+      winners.value = winnersResponse.data
+      totalWinners.value = winnersResponse.total
+      totalPages.value = winnersResponse.totalPages
+      
+      loadingList.value = false
+      updateMarkers()
+    }
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Erro desconhecido'
     console.error('Erro ao buscar ganhadores:', err)
     loading.value = false
+    loadingList.value = false
   }
 }
 
