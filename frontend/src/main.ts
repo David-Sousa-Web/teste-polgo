@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import routes from './router'
 import './style.css'
+import 'leaflet/dist/leaflet.css'
 
 const router = createRouter({
   history: createWebHistory(),
