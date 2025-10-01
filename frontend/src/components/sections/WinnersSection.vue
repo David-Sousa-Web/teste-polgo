@@ -41,7 +41,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div class="bg-white rounded-xl shadow-lg p-6 h-[600px]">
+          <div class="bg-white rounded-xl shadow-lg p-6 h-[600px] relative z-0 isolate">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-gray-800">Mapa do Brasil</h3>
               <button 
@@ -52,7 +52,7 @@
                 Ver todos
               </button>
             </div>
-            <div ref="mapContainer" class="w-full h-[520px] rounded-lg overflow-hidden"></div>
+            <div ref="mapContainer" class="w-full h-[520px] rounded-lg overflow-hidden relative z-0"></div>
           </div>
 
         <div class="bg-white rounded-xl shadow-lg p-6 h-[600px] flex flex-col">
