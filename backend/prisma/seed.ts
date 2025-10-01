@@ -17,28 +17,32 @@ async function main() {
         state: 'SP',
         city: 'São Paulo',
         prize: 'Smart TV 50 polegadas',
-        drawDate: new Date('2024-08-15')
+        drawDate: new Date('2024-08-15'),
+        deletedAt: null
       },
       {
         fullName: 'João Santos',
         state: 'RJ',
         city: 'Rio de Janeiro',
         prize: 'Smartphone Top de Linha',
-        drawDate: new Date('2024-08-16')
+        drawDate: new Date('2024-08-16'),
+        deletedAt: null
       },
       {
         fullName: 'Ana Costa',
         state: 'MG',
         city: 'Belo Horizonte',
         prize: 'Viagem para 2 pessoas',
-        drawDate: new Date('2024-08-17')
+        drawDate: new Date('2024-08-17'),
+        deletedAt: null
       },
       {
         fullName: 'Pedro Almeida',
         state: 'SP',
         city: 'Campinas',
         prize: 'Smart TV 50 polegadas',
-        drawDate: new Date('2024-08-18')
+        drawDate: new Date('2024-08-18'),
+        deletedAt: null
       }
     ]
   })
@@ -55,7 +59,8 @@ async function main() {
         city: 'São Paulo',
         address: 'Rua das Flores, 123 - Centro',
         latitude: -23.5505,
-        longitude: -46.6333
+        longitude: -46.6333,
+        deletedAt: null
       },
       {
         name: 'Hipermercado Economia',
@@ -64,7 +69,8 @@ async function main() {
         city: 'Niterói',
         address: 'Av. Principal, 456 - Boa Viagem',
         latitude: -22.8833,
-        longitude: -43.1036
+        longitude: -43.1036,
+        deletedAt: null
       },
       {
         name: 'Mercado da Esquina',
@@ -73,7 +79,8 @@ async function main() {
         city: 'Uberlândia',
         address: 'Praça da Liberdade, 789 - Bairro Novo',
         latitude: -18.9188,
-        longitude: -48.2766
+        longitude: -48.2766,
+        deletedAt: null
       }
     ]
   })
