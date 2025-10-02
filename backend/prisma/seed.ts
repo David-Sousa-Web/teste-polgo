@@ -58,8 +58,8 @@ async function main() {
         state: 'SP',
         city: 'São Paulo',
         address: 'Rua das Flores, 123 - Centro',
-        latitude: -23.5505,
-        longitude: -46.6333,
+        latitude: -23.538339190757238,
+        longitude: -46.867246595697544,
         deletedAt: null
       },
       {
@@ -68,8 +68,8 @@ async function main() {
         state: 'RJ',
         city: 'Niterói',
         address: 'Av. Principal, 456 - Boa Viagem',
-        latitude: -22.8833,
-        longitude: -43.1036,
+        latitude: -22.908281285672736, 
+        longitude: -43.130600578972754,
         deletedAt: null
       },
       {
@@ -78,8 +78,8 @@ async function main() {
         state: 'MG',
         city: 'Uberlândia',
         address: 'Praça da Liberdade, 789 - Bairro Novo',
-        latitude: -18.9188,
-        longitude: -48.2766,
+        latitude: -19.93224986500713, 
+        longitude: -43.93782574656276,
         deletedAt: null
       }
     ]
