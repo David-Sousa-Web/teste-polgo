@@ -1,4 +1,5 @@
 import api from './api'
+import type { PaginationParams, PaginatedResponse, ApiResponse } from '@/types/api'
 
 export interface Store {
   id: string
@@ -15,31 +16,6 @@ export interface StoresFilters {
   state?: string
   city?: string
   name?: string
-}
-
-export interface PaginationParams {
-  page?: number
-  limit?: number
-}
-
-export interface PaginatedResponse<T> {
-  data: T[]
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
-
-interface ApiResponse<T> {
-  success: boolean
-  data: T[]
-  pagination?: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-  message?: string
 }
 
 export const storesApi = {
