@@ -1,5 +1,5 @@
 <template>
-  <section id="ganhadores" class="py-16 min-h-screen flex items-center bg-gradient-to-br from-purple-50 to-pink-50">
+  <section id="ganhadores" class="py-16 min-h-screen flex items-center bg-gray-50">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-8">
       <SectionHeader 
         title="Ganhadores" 
