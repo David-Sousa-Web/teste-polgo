@@ -1,5 +1,6 @@
 services:
   mongo:
+    image: daviddev0508/polgo-mongo:${IMAGE_TAG:-latest}
     build: ./mongodb_rs
     container_name: mongo
     restart: always
@@ -22,6 +23,7 @@ services:
       retries: 5
 
   backend:
+    image: daviddev0508/polgo-backend:${IMAGE_TAG:-latest}
     build: ./backend
     container_name: backend
     restart: always
@@ -39,6 +41,7 @@ services:
       - app-network
 
   frontend:
+    image: daviddev0508/polgo-frontend:${IMAGE_TAG:-latest}
     build: ./frontend
     container_name: frontend
     restart: always
