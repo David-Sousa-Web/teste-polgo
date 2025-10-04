@@ -23,10 +23,13 @@ A aplicação está disponível online e pode ser acessada através dos seguinte
 
 ## 🚀 Executando Localmente com Docker (recomendado)
 
+> ⚠️ **Importante**: Para desenvolvimento local, apenas o **backend** e o **MongoDB** rodam no Docker. O **frontend** deve ser executado localmente fora do Docker para melhor experiência de desenvolvimento.
+
 ### Pré-requisitos
 
 - [Docker](https://www.docker.com/get-started) (v20+)
 - [Docker Compose](https://docs.docker.com/compose/install/) (v2+)
+- [Node.js](https://nodejs.org/) (v20+)
 
 ### 1. Clone o repositório
 
@@ -39,18 +42,17 @@ cd teste-polgo
 
 Crie um arquivo `.env` na raiz do projeto podendo copiar o arquivo `.env.example` e preencher as variáveis de ambiente.
 
-na pasta backend crie um arquivo `.env` podendo copiar o arquivo `.env.example` e preencher as variáveis de ambiente.
+Na pasta backend crie um arquivo `.env` podendo copiar o arquivo `.env.example` e preencher as variáveis de ambiente.
 
-### 3. Inicie os containers
+### 3. Inicie o Backend e MongoDB com Docker
 
 ```bash
-docker compose up -d --build
+docker compose up -d mongo backend
 ```
 
 Este comando irá:
 - 🗄️ Criar o banco MongoDB com replica set
 - 🔧 Configurar o backend (Node.js + Prisma)
-- 🎨 Configurar o frontend (Vue.js + Nginx)
 - 📊 Executar as seeds do banco de dados
 
 ### 4. Aguarde os containers iniciarem
@@ -58,21 +60,58 @@ Este comando irá:
 Acompanhe os logs:
 
 ```bash
-docker compose logs -f
+docker compose logs -f backend mongo
 ```
 
 Aguarde até ver:
 - `mongo` - Replica set configurado
 - `backend` - Server listening on port 3333
-- `frontend` - Nginx pronto
 
-### 5. Acesse a aplicação
+### 5. Inicie o Frontend localmente
 
-- **Frontend**: http://localhost
+Em outro terminal:
+
+```bash
+cd frontend
+
+# Instale as dependências (apenas na primeira vez)
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+O frontend estará rodando em `http://localhost:3000`
+
+### 6. Acesse a aplicação
+
+- **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:3333/api
 - **📚 Documentação da API (Swagger)**: http://localhost:3333/api/docs
 
 > ⚠️ **Nota**: A documentação Swagger está disponível apenas em ambiente local de desenvolvimento.
+
+### Comandos úteis
+
+```bash
+# Ver status dos containers
+docker compose ps
+
+# Ver logs do backend
+docker compose logs -f backend
+
+# Ver logs do mongo
+docker compose logs -f mongo
+
+# Parar os containers
+docker compose down
+
+# Parar e remover volumes (apaga o banco)
+docker compose down -v
+
+# Rebuild do backend
+docker compose up -d --build backend
+```
 
 ---
 

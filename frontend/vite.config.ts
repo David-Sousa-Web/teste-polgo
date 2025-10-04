@@ -30,12 +30,30 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    minify: 'esbuild',
+    target: 'esnext',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['vue', 'vue-router'],
-        }
+          'vue-core': ['vue', 'vue-router'],
+          'ui-components': ['lucide-vue-next'],
+          'utils': ['axios', '@vueuse/core']
+        },
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name?.split('.')
+          const ext = info?.[info.length - 1]
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext || '')) {
+            return `assets/images/[name]-[hash][extname]`
+          } else if (/woff|woff2|eot|ttf|otf/i.test(ext || '')) {
+            return `assets/fonts/[name]-[hash][extname]`
+          }
+          return `assets/[name]-[hash][extname]`
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js'
       }
-    }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })
