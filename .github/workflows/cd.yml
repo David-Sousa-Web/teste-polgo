@@ -1,7 +1,10 @@
 name: CD - Build and Push
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI - Tests"]
+    types:
+      - completed
     branches: [ main ]
   workflow_dispatch:
 
@@ -10,27 +13,9 @@ env:
   REGISTRY: docker.io
 
 jobs:
-  check-ci:
-    runs-on: ubuntu-latest
-    outputs:
-      ci-passed: ${{ steps.ci-status.outputs.passed }}
-    
-    steps:
-    - name: Wait for CI to complete
-      uses: lewagon/wait-on-check-action@v1.3.4
-      with:
-        ref: ${{ github.ref }}
-        check-name: 'summary'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 10
-
-    - name: Check CI status
-      id: ci-status
-      run: echo "passed=true" >> $GITHUB_OUTPUT
-
   build-and-push:
-    needs: check-ci
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     
     steps:
     - name: Checkout code
