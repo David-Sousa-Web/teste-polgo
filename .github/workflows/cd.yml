@@ -118,6 +118,20 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Upload docker-compose to server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.DO_HOST }}
+        username: ${{ secrets.DO_USER }}
+        key: ${{ secrets.DO_SSH_KEY }}
+        port: 22
+        source: "docker-compose.yml"
+        target: "/opt/polgo/"
+        overwrite: true
+
     - name: Deploy to Digital Ocean
       uses: appleboy/ssh-action@v1.0.3
       with:
