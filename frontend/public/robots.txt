@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.testepolgo.dev/sitemap.xml
+
+Disallow: /api/
+Disallow: /login
+
