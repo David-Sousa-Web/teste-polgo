@@ -8,8 +8,8 @@
       <span v-else class="text-4xl font-bold text-purple-600">{{ stepNumber }}</span>
     </div>
     
-    <h3 class="text-xl font-semibold mb-4 text-gray-800">{{ title }}</h3>
-    <p class="text-gray-600 leading-relaxed">{{ description }}</p>
+    <h3 class="text-xl font-semibold mb-4 text-gray-900">{{ title }}</h3>
+    <p class="text-gray-700 leading-relaxed">{{ description }}</p>
   </div>
 </template>
 

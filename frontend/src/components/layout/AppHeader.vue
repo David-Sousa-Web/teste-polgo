@@ -32,8 +32,8 @@
             href="#home" 
             class="font-medium px-4 py-2 transition-all duration-200 hover:scale-105"
             :class="activeSection === 'home' 
-              ? (isScrolled ? 'text-purple-600' : 'text-yellow-300') 
-              : (isScrolled ? 'text-gray-700 hover:text-purple-600' : 'text-white hover:text-gray-200')"
+              ? (isScrolled ? 'text-purple-600' : 'text-yellow-200') 
+              : (isScrolled ? 'text-gray-900 hover:text-purple-600' : 'text-white hover:text-gray-100')"
             @click="handleNavClick('home')"
           >
             Home
@@ -42,8 +42,8 @@
             href="#como-participar" 
             class="font-medium px-4 py-2 transition-all duration-200 hover:scale-105"
             :class="activeSection === 'como-participar' 
-              ? (isScrolled ? 'text-purple-600' : 'text-yellow-300') 
-              : (isScrolled ? 'text-gray-700 hover:text-purple-600' : 'text-white hover:text-gray-200')"
+              ? (isScrolled ? 'text-purple-600' : 'text-yellow-200') 
+              : (isScrolled ? 'text-gray-900 hover:text-purple-600' : 'text-white hover:text-gray-100')"
             @click="handleNavClick('como-participar')"
           >
             Como Participar
@@ -52,8 +52,8 @@
             href="#premios" 
             class="font-medium px-4 py-2 transition-all duration-200 hover:scale-105"
             :class="activeSection === 'premios' 
-              ? (isScrolled ? 'text-purple-600' : 'text-yellow-300') 
-              : (isScrolled ? 'text-gray-700 hover:text-purple-600' : 'text-white hover:text-gray-200')"
+              ? (isScrolled ? 'text-purple-600' : 'text-yellow-200') 
+              : (isScrolled ? 'text-gray-900 hover:text-purple-600' : 'text-white hover:text-gray-100')"
             @click="handleNavClick('premios')"
           >
             Prêmios
@@ -62,8 +62,8 @@
             href="#faq" 
             class="font-medium px-4 py-2 transition-all duration-200 hover:scale-105"
             :class="activeSection === 'faq' 
-              ? (isScrolled ? 'text-purple-600' : 'text-yellow-300') 
-              : (isScrolled ? 'text-gray-700 hover:text-purple-600' : 'text-white hover:text-gray-200')"
+              ? (isScrolled ? 'text-purple-600' : 'text-yellow-200') 
+              : (isScrolled ? 'text-gray-900 hover:text-purple-600' : 'text-white hover:text-gray-100')"
             @click="handleNavClick('faq')"
           >
             FAQ
@@ -72,8 +72,8 @@
             href="#ganhadores" 
             class="font-medium px-4 py-2 transition-all duration-200 hover:scale-105"
             :class="activeSection === 'ganhadores' 
-              ? (isScrolled ? 'text-purple-600' : 'text-yellow-300') 
-              : (isScrolled ? 'text-gray-700 hover:text-purple-600' : 'text-white hover:text-gray-200')"
+              ? (isScrolled ? 'text-purple-600' : 'text-yellow-200') 
+              : (isScrolled ? 'text-gray-900 hover:text-purple-600' : 'text-white hover:text-gray-100')"
             @click="handleNavClick('ganhadores')"
           >
             Ganhadores
@@ -82,8 +82,8 @@
             href="#lojas" 
             class="font-medium px-4 py-2 transition-all duration-200 hover:scale-105"
             :class="activeSection === 'lojas' 
-              ? (isScrolled ? 'text-purple-600' : 'text-yellow-300') 
-              : (isScrolled ? 'text-gray-700 hover:text-purple-600' : 'text-white hover:text-gray-200')"
+              ? (isScrolled ? 'text-purple-600' : 'text-yellow-200') 
+              : (isScrolled ? 'text-gray-900 hover:text-purple-600' : 'text-white hover:text-gray-100')"
             @click="handleNavClick('lojas')"
           >
             Lojas
@@ -111,15 +111,15 @@
         >
           <span 
             class="w-full h-0.5 rounded-full transition-all duration-300 origin-center hamburger-line"
-            :class="isMobileMenuOpen ? 'bg-purple-600' : (isScrolled ? 'bg-gray-700' : 'bg-white')"
+            :class="isMobileMenuOpen ? 'bg-purple-600' : (isScrolled ? 'bg-gray-900' : 'bg-white')"
           ></span>
           <span 
             class="w-full h-0.5 rounded-full transition-all duration-300 origin-center hamburger-line"
-            :class="isMobileMenuOpen ? 'bg-purple-600' : (isScrolled ? 'bg-gray-700' : 'bg-white')"
+            :class="isMobileMenuOpen ? 'bg-purple-600' : (isScrolled ? 'bg-gray-900' : 'bg-white')"
           ></span>
           <span 
             class="w-full h-0.5 rounded-full transition-all duration-300 origin-center hamburger-line"
-            :class="isMobileMenuOpen ? 'bg-purple-600' : (isScrolled ? 'bg-gray-700' : 'bg-white')"
+            :class="isMobileMenuOpen ? 'bg-purple-600' : (isScrolled ? 'bg-gray-900' : 'bg-white')"
           ></span>
         </button>
       </div>
@@ -151,8 +151,8 @@
               href="#home" 
               class="flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors"
               :class="activeSection === 'home' 
-                ? 'bg-purple-50 text-purple-600' 
-                : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'"
+                ? 'bg-purple-50 text-purple-700' 
+                : 'text-gray-900 hover:bg-gray-50 hover:text-purple-600'"
               @click="handleNavClick('home')"
             >
               <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,8 +166,8 @@
               href="#como-participar" 
               class="flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors"
               :class="activeSection === 'como-participar' 
-                ? 'bg-purple-50 text-purple-600' 
-                : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'"
+                ? 'bg-purple-50 text-purple-700' 
+                : 'text-gray-900 hover:bg-gray-50 hover:text-purple-600'"
               @click="handleNavClick('como-participar')"
             >
               <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,8 +181,8 @@
               href="#premios" 
               class="flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors"
               :class="activeSection === 'premios' 
-                ? 'bg-purple-50 text-purple-600' 
-                : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'"
+                ? 'bg-purple-50 text-purple-700' 
+                : 'text-gray-900 hover:bg-gray-50 hover:text-purple-600'"
               @click="handleNavClick('premios')"
             >
               <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,8 +196,8 @@
               href="#faq" 
               class="flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors"
               :class="activeSection === 'faq' 
-                ? 'bg-purple-50 text-purple-600' 
-                : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'"
+                ? 'bg-purple-50 text-purple-700' 
+                : 'text-gray-900 hover:bg-gray-50 hover:text-purple-600'"
               @click="handleNavClick('faq')"
             >
               <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,8 +211,8 @@
               href="#ganhadores" 
               class="flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors"
               :class="activeSection === 'ganhadores' 
-                ? 'bg-purple-50 text-purple-600' 
-                : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'"
+                ? 'bg-purple-50 text-purple-700' 
+                : 'text-gray-900 hover:bg-gray-50 hover:text-purple-600'"
               @click="handleNavClick('ganhadores')"
             >
               <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,8 +226,8 @@
               href="#lojas" 
               class="flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors"
               :class="activeSection === 'lojas' 
-                ? 'bg-purple-50 text-purple-600' 
-                : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'"
+                ? 'bg-purple-50 text-purple-700' 
+                : 'text-gray-900 hover:bg-gray-50 hover:text-purple-600'"
               @click="handleNavClick('lojas')"
             >
               <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

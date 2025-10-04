@@ -12,7 +12,7 @@
           </span>
         </h1>
         
-        <p class="text-lg md:text-xl mb-12 opacity-90 leading-relaxed max-w-2xl mx-auto">
+        <p class="text-lg md:text-xl mb-12 leading-relaxed max-w-2xl mx-auto text-white">
           Concorra a prêmios incríveis e transforme sua vida! Tenha a chance de ganhar produtos exclusivos, viagens dos sonhos e muito mais.
         </p>
         
