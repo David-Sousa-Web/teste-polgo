@@ -1,13 +1,13 @@
 <template>
   <section 
     id="home" 
-    class="pt-32 min-h-screen flex items-center bg-gradient-to-br from-blue-500 via-purple-600 to-purple-700 text-white relative overflow-hidden"
+    class="pt-32 min-h-screen flex items-center bg-gradient-to-br from-blue-700 via-purple-800 to-purple-900 text-white relative overflow-hidden"
   >
     <div class="w-full max-w-6xl mx-auto px-4 sm:px-8">
       <div class="text-center max-w-4xl mx-auto z-10 relative animate-fade-in-up">
         <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight">
           Participe da Nossa
-          <span class="block bg-gradient-to-r from-yellow-300 to-amber-400 bg-clip-text text-transparent">
+          <span class="block bg-gradient-to-r from-yellow-200 to-yellow-50 bg-clip-text text-transparent">
             Promoção
           </span>
         </h1>

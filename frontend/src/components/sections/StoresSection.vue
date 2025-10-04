@@ -128,7 +128,7 @@
                         {{ store.city }} - {{ store.state }}
                       </span>
                     </p>
-                    <p class="text-sm text-gray-500 mt-1">{{ store.address }}</p>
+                    <p class="text-sm text-gray-700 mt-1">{{ store.address }}</p>
                     <p v-if="store.distance" class="text-blue-600 font-semibold mt-2 text-sm">
                       📏 {{ store.distance.toFixed(1) }} km de você
                     </p>
@@ -151,10 +151,10 @@
                 @click="currentPage = Math.max(1, currentPage - 1)"
                 :disabled="currentPage === 1"
                 :class="[
-                  'px-4 py-2 rounded-lg border transition-all font-medium',
+                  'px-4 py-2 rounded-lg border transition-all font-medium text-gray-700',
                   currentPage === 1
                     ? 'opacity-50 cursor-not-allowed bg-gray-50 text-gray-400'
-                    : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700'
+                    : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-800'
                 ]"
               >
                 ← Anterior
@@ -187,10 +187,10 @@
                 @click="currentPage = Math.min(totalPages, currentPage + 1)"
                 :disabled="currentPage === totalPages"
                 :class="[
-                  'px-4 py-2 rounded-lg border transition-all font-medium',
+                  'px-4 py-2 rounded-lg border transition-all font-medium text-gray-700',
                   currentPage === totalPages
                     ? 'opacity-50 cursor-not-allowed bg-gray-50 text-gray-400'
-                    : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700'
+                    : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-800'
                 ]"
               >
                 Próximo →

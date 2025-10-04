@@ -31,52 +31,11 @@
         </button>
       </div>
     </div>
-    
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Como faço para participar da promoção?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Para participar, basta realizar compras nos estabelecimentos participantes e cadastrar suas notas fiscais no aplicativo da campanha."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Quais são os prêmios da campanha?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Os prêmios incluem Smart TVs, smartphones de última geração, viagens e muitos outros. Consulte a seção de Prêmios para mais detalhes."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Posso participar mais de uma vez?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sim, cada nota fiscal cadastrada gera uma nova chance de ganhar, desde que atenda aos requisitos do regulamento."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Onde posso encontrar o regulamento completo?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "O regulamento completo está disponível para consulta no rodapé da página principal da campanha."
-            }
-          }
-        ]
-      }
-    </script>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import SectionHeader from '@/components/ui/SectionHeader.vue'
 import FaqItem from '@/components/ui/FaqItem.vue'
 
@@ -119,5 +78,34 @@ const filteredFaqs = computed(() => {
 const toggleFaq = (id: number) => {
   activeFaqId.value = activeFaqId.value === id ? null : id
 }
+
+const schemaScript = ref<HTMLScriptElement | null>(null)
+
+onMounted(() => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.value.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  }
+
+  const script = document.createElement('script')
+  script.type = 'application/ld+json'
+  script.text = JSON.stringify(schema)
+  document.head.appendChild(script)
+  schemaScript.value = script
+})
+
+onUnmounted(() => {
+  if (schemaScript.value && document.head.contains(schemaScript.value)) {
+    document.head.removeChild(schemaScript.value)
+  }
+})
 </script>
 

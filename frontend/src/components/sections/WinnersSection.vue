@@ -170,10 +170,10 @@
               @click="currentPage = Math.max(1, currentPage - 1)"
               :disabled="currentPage === 1"
               :class="[
-                'px-4 py-2 rounded-lg border transition-all font-medium',
+                'px-4 py-2 rounded-lg border transition-all font-medium text-gray-700',
                 currentPage === 1
                   ? 'opacity-50 cursor-not-allowed bg-gray-50 text-gray-400'
-                  : 'hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700'
+                  : 'hover:bg-purple-50 hover:border-purple-300 hover:text-purple-800'
               ]"
             >
               ← Anterior
@@ -206,10 +206,10 @@
               @click="currentPage = Math.min(totalPages, currentPage + 1)"
               :disabled="currentPage === totalPages"
               :class="[
-                'px-4 py-2 rounded-lg border transition-all font-medium',
+                'px-4 py-2 rounded-lg border transition-all font-medium text-gray-700',
                 currentPage === totalPages
                   ? 'opacity-50 cursor-not-allowed bg-gray-50 text-gray-400'
-                  : 'hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700'
+                  : 'hover:bg-purple-50 hover:border-purple-300 hover:text-purple-800'
               ]"
             >
               Próximo →
