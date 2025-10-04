@@ -21,7 +21,7 @@ A aplicação está disponível online e pode ser acessada através dos seguinte
 
 ---
 
-## 🚀 Executando Localmente (com Docker)
+## 🚀 Executando Localmente com Docker (recomendado)
 
 ### Pré-requisitos
 
