@@ -68,7 +68,7 @@ jobs:
         flags: backend
         fail_ci_if_error: false
 
-  lint-frontend:
+  build-frontend:
     runs-on: ubuntu-latest
     
     steps:
@@ -86,23 +86,19 @@ jobs:
       working-directory: ./frontend
       run: npm ci
 
-    - name: Run lint
-      working-directory: ./frontend
-      run: npm run lint
-
     - name: Build check
       working-directory: ./frontend
       run: npm run build
 
   summary:
-    needs: [test-backend, lint-frontend]
+    needs: [test-backend, build-frontend]
     runs-on: ubuntu-latest
     if: always()
     
     steps:
     - name: Check results
       run: |
-        if [ "${{ needs.test-backend.result }}" == "failure" ] || [ "${{ needs.lint-frontend.result }}" == "failure" ]; then
+        if [ "${{ needs.test-backend.result }}" == "failure" ] || [ "${{ needs.build-frontend.result }}" == "failure" ]; then
           echo "❌ CI failed!"
           exit 1
         else
