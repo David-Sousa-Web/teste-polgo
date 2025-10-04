@@ -25,7 +25,7 @@
         />
       </div>
       <div v-if="filteredFaqs.length === 0" class="text-center py-12">
-        <p class="text-lg text-gray-600 mb-6">Nenhuma pergunta encontrada para "<strong>{{ searchTerm }}</strong>"</p>
+        <p class="text-lg text-gray-700 mb-6">Nenhuma pergunta encontrada para "<strong>{{ searchTerm }}</strong>"</p>
         <button @click="searchTerm = ''" class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold rounded-lg transition-all duration-150 outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer bg-transparent text-primary-500 border-2 border-primary-500 hover:bg-primary-500 hover:text-white focus:ring-primary-500">
           Limpar busca
         </button>

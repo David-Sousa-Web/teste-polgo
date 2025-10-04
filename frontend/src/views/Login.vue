@@ -21,7 +21,7 @@
           </p>
           
           <div class="bg-purple-50 rounded-lg p-4 border-l-4 border-purple-600">
-            <p class="text-sm text-gray-600">
+            <p class="text-sm text-gray-700">
               🎉 Em breve você poderá acessar sua conta e participar de promoções incríveis!
             </p>
           </div>

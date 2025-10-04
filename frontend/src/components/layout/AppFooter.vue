@@ -110,7 +110,7 @@
 
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
         <p>&copy; 2023 PromoçãoTop. Todos os direitos reservados.</p>
-        <p class="italic opacity-80">
+        <p class="italic text-slate-300">
           Esta é uma promoção fictícia criada para fins de demonstração técnica.
         </p>
       </div>

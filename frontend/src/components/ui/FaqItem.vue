@@ -8,7 +8,7 @@
       class="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300 ease-out"
       type="button"
     >
-      <span class="text-lg font-semibold text-gray-800 pr-4">{{ faq.question }}</span>
+      <span class="text-lg font-semibold text-gray-900 pr-4">{{ faq.question }}</span>
       <svg 
         class="flex-shrink-0 w-6 h-6 text-primary-500 transform transition-transform duration-500 ease-out"
         :class="{ 'rotate-180': isActive }"
@@ -27,7 +27,7 @@
       @leave="onLeave"
     >
       <div v-if="isActive" class="overflow-hidden">
-        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+        <div class="px-6 pb-6 text-gray-700 leading-relaxed">
           <p>{{ faq.answer }}</p>
         </div>
       </div>

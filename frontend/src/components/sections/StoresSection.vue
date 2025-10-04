@@ -8,7 +8,7 @@
 
       <div v-if="loading" class="text-center py-16">
         <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-        <p class="mt-4 text-gray-600">Carregando lojas...</p>
+        <p class="mt-4 text-gray-700">Carregando lojas...</p>
       </div>
 
       <div v-else-if="error" class="text-center py-16 bg-red-50 rounded-xl">
@@ -18,7 +18,7 @@
       <div v-else class="space-y-6">
         <div class="bg-white rounded-xl shadow-lg p-6">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-gray-800">📍 Sua Localização</h3>
+            <h3 class="text-xl font-bold text-gray-900">📍 Sua Localização</h3>
             <button 
               @click="getUserLocation"
               :disabled="loadingLocation"
@@ -41,20 +41,20 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div class="bg-white rounded-xl shadow-lg p-6 h-[600px] relative z-0 isolate">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-gray-800">Mapa de Lojas</h3>
+              <h3 class="text-xl font-bold text-gray-900">Mapa de Lojas</h3>
             </div>
             <div ref="mapContainer" class="w-full h-[520px] rounded-lg overflow-hidden relative z-0"></div>
           </div>
 
           <div class="bg-white rounded-xl shadow-lg p-6 h-[600px] flex flex-col">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-2xl font-bold text-gray-800">Todas as Lojas</h3>
+              <h3 class="text-2xl font-bold text-gray-900">Todas as Lojas</h3>
             </div>
 
             <div class="mb-4">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                 <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1">Buscar por nome</label>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1">Buscar por nome</label>
                   <input 
                     v-model="searchNameInput"
                     type="text"
@@ -64,7 +64,7 @@
                   />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1">Buscar por estado</label>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1">Buscar por estado</label>
                   <input 
                     v-model="searchStateInput"
                     type="text"
@@ -85,14 +85,14 @@
                 <button
                   v-if="appliedSearchName || appliedSearchState"
                   @click="clearFilters"
-                  class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium text-sm"
+                  class="px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium text-sm"
                 >
                   ✕ Limpar
                 </button>
               </div>
             </div>
 
-            <div class="flex items-center justify-between mb-3 text-sm text-gray-600">
+            <div class="flex items-center justify-between mb-3 text-sm text-gray-700">
               <p>{{ totalStores }} loja(s) encontrada(s) - Página {{ currentPage }} de {{ totalPages }}</p>
               <select 
                 v-model="itemsPerPage"
@@ -108,7 +108,7 @@
               <div v-if="loadingList" class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10 rounded-lg">
                 <div class="text-center">
                   <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
-                  <p class="mt-2 text-sm text-gray-600">Atualizando...</p>
+                  <p class="mt-2 text-sm text-gray-700">Atualizando...</p>
                 </div>
               </div>
               
@@ -119,8 +119,8 @@
               >
                 <div class="flex items-start justify-between">
                   <div class="flex-1">
-                    <h4 class="font-bold text-gray-800 text-lg">{{ store.name }}</h4>
-                    <p class="text-sm text-gray-600 mt-1">
+                    <h4 class="font-bold text-gray-900 text-lg">{{ store.name }}</h4>
+                    <p class="text-sm text-gray-700 mt-1">
                       <span class="inline-flex items-center">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
@@ -432,7 +432,7 @@ const updateMarkers = () => {
         <div class="p-2">
           <h3 class="font-bold text-blue-600 mb-2">${store.name}</h3>
           <p class="text-sm text-gray-700">${store.address}</p>
-          <p class="text-sm text-gray-600">${store.city} - ${store.state}</p>
+          <p class="text-sm text-gray-700">${store.city} - ${store.state}</p>
           ${store.distance ? `<p class="text-sm text-blue-600 font-semibold mt-1">📏 ${store.distance.toFixed(1)} km</p>` : ''}
         </div>
       `

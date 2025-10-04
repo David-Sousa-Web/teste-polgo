@@ -10,7 +10,7 @@
         </div>
         
         <div class="flex items-center">
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-gray-700 leading-relaxed">
             Participar é muito simples e rápido! Siga nossos passos fáceis para começar a concorrer 
             aos prêmios mais incríveis. Cada etapa foi pensada para tornar sua experiência única e 
             emocionante. Cadastre-se, participe e acompanhe sua jornada rumo a prêmios que podem 
@@ -35,7 +35,7 @@
             {{ step.title }}
           </h3>
           
-          <p class="text-gray-600 leading-relaxed">
+          <p class="text-gray-700 leading-relaxed">
             {{ step.description }}
           </p>
         </div>

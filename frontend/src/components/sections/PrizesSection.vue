@@ -6,7 +6,7 @@
         <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
           Recompensas Incríveis Te Esperam
         </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto">
           Descubra uma variedade de prêmios incríveis das melhores marcas. Algo para todos.
         </p>
       </div>
@@ -19,7 +19,7 @@
           class="px-6 py-3 font-medium text-base transition-all duration-200 border-b-2"
           :class="selectedPrize?.id === prize.id 
             ? 'text-purple-600 border-purple-600' 
-            : 'text-gray-600 border-transparent hover:text-purple-600'"
+            : 'text-gray-700 border-transparent hover:text-purple-600'"
         >
           {{ prize.name }}
         </button>
@@ -44,7 +44,7 @@
             <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {{ selectedPrize.name }}
             </h3>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-lg text-gray-700 leading-relaxed">
               {{ selectedPrize.description }}
             </p>
           </div>
