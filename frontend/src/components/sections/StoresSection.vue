@@ -115,7 +115,7 @@
               <div 
                 v-for="store in stores" 
                 :key="store.id"
-                class="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-100 hover:shadow-md transition-shadow"
+                class="p-4 bg-blue-50 rounded-lg border border-blue-200 hover:shadow-md transition-shadow"
               >
                 <div class="flex items-start justify-between">
                   <div class="flex-1">

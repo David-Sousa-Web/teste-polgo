@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-gradient-to-br from-slate-800 to-slate-700 text-slate-200 pt-12 pb-4 mt-auto">
+  <footer class="bg-slate-800 text-slate-100 pt-12 pb-4 mt-auto">
     <div class="w-full max-w-6xl mx-auto px-4 sm:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
         <div class="lg:col-span-2 max-w-md">
@@ -108,7 +108,7 @@
 
       <div class="h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent mb-8"></div>
 
-      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-300 text-sm">
         <p>&copy; 2023 PromoçãoTop. Todos os direitos reservados.</p>
         <p class="italic text-slate-300">
           Esta é uma promoção fictícia criada para fins de demonstração técnica.

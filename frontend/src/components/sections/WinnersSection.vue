@@ -133,7 +133,7 @@
             <div 
               v-for="winner in paginatedWinners" 
               :key="winner.id"
-              class="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100 hover:shadow-md transition-shadow"
+              class="p-4 bg-purple-50 rounded-lg border border-purple-200 hover:shadow-md transition-shadow"
             >
               <div class="flex items-start justify-between">
                 <div class="flex-1">
